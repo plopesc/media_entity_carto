@@ -1,0 +1,7 @@
+media_entity.bundle.type.carto:
+  type: mapping
+  label: 'CARTO type configuration'
+  mapping:
+    source_field:
+      type: string
+      label: 'Field with embed code/URL'
