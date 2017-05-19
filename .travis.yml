@@ -47,8 +47,4 @@ script:
   - git clone --depth 1 --branch 8.x-1.x http://git.drupal.org/project/media_entity.git
   - ln -s $TRAVIS_BUILD_DIR
   - cd ../
-  - pwd
-  - ls
-  - cd ../
-  - ls
   - ./vendor/bin/phpunit -c core modules/media_entity_carto/tests/src/Unit
