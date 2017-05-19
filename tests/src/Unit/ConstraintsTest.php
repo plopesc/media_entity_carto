@@ -42,7 +42,7 @@ class ConstraintsTest extends UnitTestCase {
    *
    * @dataProvider embedCodeProvider
    */
-  public function testTweetEmbedCodeConstraint($embed_code, $expected_violation_count) {
+  public function testCartoEmbedCodeConstraint($embed_code, $expected_violation_count) {
     // Check message in constraint.
     $constraint = new CartoEmbedCodeConstraint();
     $this->assertEquals('Not valid CARTO Map URL/embed code.', $constraint->message, 'Correct constraint message found.');
@@ -68,7 +68,7 @@ class ConstraintsTest extends UnitTestCase {
   }
 
   /**
-   * Provides test data for testTweetEmbedCodeConstraint().
+   * Provides test data for testCartoEmbedCodeConstraint().
    */
   public function embedCodeProvider() {
     return [
