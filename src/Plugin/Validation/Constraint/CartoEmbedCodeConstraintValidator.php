@@ -2,8 +2,9 @@
 
 namespace Drupal\media_entity_carto\Plugin\Validation\Constraint;
 
-use Drupal\media_entity\EmbedCodeValueTrait;
-use Drupal\media_entity_carto\Plugin\MediaEntity\Type\Carto;
+use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Field\FieldItemList;
+use Drupal\media_entity_carto\Plugin\media\Source\Carto;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -12,24 +13,42 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class CartoEmbedCodeConstraintValidator extends ConstraintValidator {
 
-  use EmbedCodeValueTrait;
-
   /**
    * {@inheritdoc}
    */
   public function validate($value, Constraint $constraint) {
-    $value = $this->getEmbedCode($value);
-    if (!isset($value)) {
-      return;
+    $data = '';
+    if (is_string($value)) {
+      $data = $value;
     }
-
-    foreach (Carto::$validationRegexp as $pattern => $key) {
-      if (preg_match($pattern, $value)) {
-        return;
+    elseif ($value instanceof FieldItemList) {
+      $fieldtype = $value->getFieldDefinition()->getType();
+      $field_value = $value->getValue();
+      if ($fieldtype == 'link') {
+        $data = empty($field_value[0]['uri']) ? "" : $field_value[0]['uri'];
+      }
+      else {
+        $data = empty($field_value[0]['value']) ? "" : $field_value[0]['value'];
       }
     }
-
-    $this->context->addViolation($constraint->message);
+    elseif ($value instanceof FieldItemInterface) {
+      $class = get_class($value);
+      $property = $class::mainPropertyName();
+      if ($property) {
+        $data = $value->{$property};
+      }
+    }
+    if ($data) {
+      $matches = [];
+      foreach (Carto::$validationRegexp as $pattern => $key) {
+        if (preg_match($pattern, $data, $item_matches)) {
+          $matches[] = $item_matches;
+        }
+      }
+      if (empty($matches)) {
+        $this->context->addViolation($constraint->message);
+      }
+    }
   }
 
 }

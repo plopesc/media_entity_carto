@@ -16,10 +16,5 @@
     "source": "http://cgit.drupalcode.org/media_entity_carto"
   },
   "license": "GPL-2.0+",
-  "minimum-stability": "dev",
-  "require": {
-    "drupal/media_entity": "~1.6",
-    "league/csv": "~8.0"
-  }
-
+  "minimum-stability": "dev"
 }

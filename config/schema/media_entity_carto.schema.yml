@@ -1,7 +1,3 @@
-media_entity.bundle.type.carto:
-  type: mapping
-  label: 'CARTO type configuration'
-  mapping:
-    source_field:
-      type: string
-      label: 'Field with embed code/URL'
+media.source.carto:
+  type: media.source.field_aware
+  label: '"CARTO" media source configuration'

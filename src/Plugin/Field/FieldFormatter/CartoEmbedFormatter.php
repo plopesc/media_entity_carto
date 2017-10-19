@@ -5,7 +5,7 @@ namespace Drupal\media_entity_carto\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\media_entity_carto\Plugin\MediaEntity\Type\Carto;
+use Drupal\media_entity_carto\Plugin\media\Source\Carto;
 
 /**
  * Plugin implementation of the 'carto_embed' formatter.
@@ -47,7 +47,7 @@ class CartoEmbedFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $element = array();
+    $element = [];
     foreach ($items as $delta => $item) {
       $matches = [];
 
